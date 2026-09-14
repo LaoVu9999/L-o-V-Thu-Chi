@@ -54,5 +54,5 @@ $('clearData').onclick=()=>{if(confirm('Xóa toàn bộ dữ liệu trên thiế
 function csv(filterBook){let rows=data.filter(x=>!filterBook||x.book===filterBook),out=[['Sổ','Ngày','Loại','Danh mục','Số tiền','Ghi chú']];rows.forEach(x=>out.push([BOOKS[x.book],x.date,x.type==='income'?'Thu':x.type==='expense'?'Chi':'Chuyển',x.category,x.amount,x.note||'']));return '\ufeff'+out.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\r\n')}
 function dl(text,name){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'text/csv;charset=utf-8'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 $('exportBook').onclick=()=>dl(csv(book),'Vu_Thu_Chi_'+book+'.csv');$('exportAll').onclick=()=>dl(csv(),'Vu_Thu_Chi_tat_ca.csv');
-$('dateText').textContent=fmt(selectedDate);setupCats();render();
+$('monthBtn').textContent=`Tháng ${new Date().getMonth()+1}, ${new Date().getFullYear()}⌄`;$('dateText').textContent=fmt(selectedDate);setupCats();render();
 if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
