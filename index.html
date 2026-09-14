@@ -1,112 +1,29 @@
-<!doctype html>
-<html lang="vi">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b1220">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>Vũ Thu Chi</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="app">
-  <header class="topbar">
-    <div class="user"><div class="avatarPhoto">V</div><div><small>Xin chào</small><b>Vũ</b></div></div>
-    <div class="top-actions"><button class="ghost" id="monthBtn">Tháng 9, 2026⌄</button><button class="round" id="refresh">↻</button></div>
-  </header>
+<!doctype html><html lang="vi"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4f6fa"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png"><title>Vũ Thu Chi</title><link rel="stylesheet" href="style.css">
+</head><body>
+<div id="splash" class="screen splash"><div class="mountain"></div><div class="splash-content"><div class="logoV">V</div><h1>Vũ Thu Chi</h1><p>Quản lý tài chính · Làm chủ cuộc sống</p><div class="quote">Kỷ luật hôm nay<br><span>Tự do ngày mai</span></div><button id="start">Bắt đầu</button></div></div>
+<div id="app" class="app hidden">
+<header class="top"><div class="profile"><div class="avatar">V</div><div><small>Xin chào</small><b>Vũ</b></div></div><div class="topright"><button id="monthBtn">Tháng 9, 2026⌄</button><button class="bell">♧</button></div></header>
+<div id="pages">
+<section class="page active" id="home"><div class="tabs" id="bookTabs"><button class="active" data-book="personal">👤 Cá nhân</button><button data-book="shop">🖊 Quán</button><button data-book="company">Doanh nghiệp</button></div>
+<div class="balance"><div class="bt"><span>Số dư hiện tại</span><em>↗ 12% so với tháng trước</em></div><strong id="balance">125.430.000 ₫</strong><div class="miniLine"></div></div>
+<div class="twostat"><div><small>Tổng thu</small><b class="green" id="income">186.500.000 ₫</b></div><div><small>Tổng chi</small><b class="red" id="expense">61.070.000 ₫</b></div></div>
+<div class="actions"><button id="incomeBtn"><i class="gi">↓</i><b>Thu</b></button><button id="expenseBtn"><i class="ri">↑</i><b>Chi</b></button><button id="transferBtn"><i class="bi">⇄</i><b>Chuyển</b></button></div>
+<div class="sectionhead"><div><h2>Giao dịch gần đây</h2></div><button id="allBtn">Xem tất cả ›</button></div><div class="card transactions" id="recent"></div></section>
 
-  <main id="homePage" class="page active">
-    <div class="book-tabs" id="books">
-      <button class="book active" data-book="personal">Cá nhân</button>
-      <button class="book" data-book="shop">Quán</button>
-      <button class="book" data-book="company">Doanh nghiệp</button>
-    </div>
+<section class="page" id="transactions"><div class="title"><h1>Lịch sử giao dịch</h1></div><div class="search">⌕<input id="search" placeholder="Tìm kiếm giao dịch..."></div><div class="chips" id="filters"><button class="active" data-filter="all">Tất cả</button><button data-filter="income">Thu</button><button data-filter="expense">Chi</button><button data-filter="transfer">Chuyển</button></div><div id="allList" class="card transactions"></div></section>
 
-    <section class="balance-card">
-      <div class="balance-top"><span>Số dư hiện tại</span><span class="trend">↗ <b>12%</b> so với tháng trước</span></div>
-      <div class="balance" id="balance">0 ₫</div>
-      <div class="spark"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-    </section>
+<section class="page" id="reports"><div class="title"><h1>Thống kê</h1><small>Tháng 9, 2026 ›</small></div><div class="reporttabs"><button class="active">Tổng quan</button><button>Thu</button><button>Chi</button></div><div class="twostat report"><div><small>Tổng thu</small><b class="green" id="rIncome">186.500.000 ₫</b></div><div><small>Tổng chi</small><b class="red" id="rExpense">61.070.000 ₫</b></div></div><div class="card chartbig"><h3>Thu & chi theo ngày</h3><canvas id="chart"></canvas><div class="legend"><span>■ Thu</span><span>■ Chi</span></div></div><div class="sectionhead"><h2>Cân đối dòng tiền</h2></div><div class="card donut"><div class="donutring"><span id="donutVal">125.4M</span><small>Số dư</small></div><div id="donutLabels"></div></div></section>
 
-    <div class="stat-grid">
-      <div class="stat income"><small>Tổng thu</small><b id="income">0 ₫</b></div>
-      <div class="stat expense"><small>Tổng chi</small><b id="expense">0 ₫</b></div>
-    </div>
+<section class="page" id="categories"><div class="title"><h1>Danh mục</h1></div><div class="tabs smalltabs"><button class="active" data-book="personal">👤 Cá nhân</button><button data-book="shop">Quán</button><button data-book="company">Doanh nghiệp</button></div><div class="catblock"><h3>Thu nhập <b>＋</b></h3><div id="incomeCats" class="catlist"></div></div><div class="catblock"><h3>Chi tiêu <b>＋</b></h3><div id="expenseCats" class="catlist"></div></div></section>
 
-    <div class="quick">
-      <button id="addIncome"><i class="green">↓</i><b>Thu</b><small>Thêm khoản thu</small></button>
-      <button id="addExpense"><i class="red">↑</i><b>Chi</b><small>Thêm khoản chi</small></button>
-      <button id="addTransfer"><i class="blue">⇄</i><b>Chuyển</b><small>Giữa các sổ</small></button>
-    </div>
-
-    <section class="section">
-      <div class="section-head"><div><small>TỔNG QUAN</small><h2>Dòng tiền tháng này</h2></div><button id="openReports">Xem chi tiết ›</button></div>
-      <div class="chart-card">
-        <div class="chart-meta"><span><i class="dot greenbg"></i> Thu <b id="mIncome">0 ₫</b></span><span><i class="dot redbg"></i> Chi <b id="mExpense">0 ₫</b></span></div>
-        <canvas id="cashChart"></canvas>
-        <div class="chart-labels"><span>1</span><span>7</span><span>14</span><span>21</span><span>30</span></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head"><div><small>HOẠT ĐỘNG</small><h2>Giao dịch gần đây</h2></div><button id="openTransactions">Xem tất cả ›</button></div>
-      <div class="transaction-card" id="recentList"></div>
-    </section>
-  </main>
-
-  <main id="transactionsPage" class="page">
-    <div class="page-title"><div><small>LỊCH SỬ</small><h1>Giao dịch</h1></div></div>
-    <div class="search"><span>⌕</span><input id="search" placeholder="Tìm kiếm giao dịch..."></div>
-    <div class="chips" id="filters"><button class="active" data-filter="all">Tất cả</button><button data-filter="income">Thu</button><button data-filter="expense">Chi</button><button data-filter="transfer">Chuyển</button></div>
-    <div class="transaction-card full" id="list"></div>
-  </main>
-
-  <main id="reportsPage" class="page">
-    <div class="page-title"><div><small>PHÂN TÍCH</small><h1>Thống kê</h1></div></div>
-    <div class="report-switch"><button class="active">Tổng quan</button><button>Thu</button><button>Chi</button></div>
-    <div class="report-stats"><div><small>Tổng thu</small><b id="rIncome">0 ₫</b></div><div><small>Tổng chi</small><b id="rExpense">0 ₫</b></div></div>
-    <section class="chart-card big"><h3>Thu & chi theo ngày</h3><canvas id="reportChart"></canvas></section>
-    <section class="section compact"><div class="section-head"><div><small>DANH MỤC</small><h2>Chi tiêu theo nhóm</h2></div></div><div id="categorySummary" class="category-summary"></div></section>
-    <section class="section compact"><div class="section-head"><div><small>DỮ LIỆU</small><h2>Sao lưu & xuất</h2></div></div><div class="export-grid"><button id="exportBook">Xuất sổ hiện tại</button><button id="exportAll">Xuất tất cả sổ</button></div></section>
-  </main>
-
-  <main id="morePage" class="page">
-    <div class="page-title"><div><small>CÀI ĐẶT</small><h1>Khác</h1></div></div>
-    <div class="settings-card">
-      <button id="manageCats"><span>◈</span><div><b>Danh mục</b><small>Quản lý nhóm thu & chi</small></div><em>›</em></button>
-      <button id="clearData"><span>⌫</span><div><b>Xóa toàn bộ dữ liệu</b><small>Thao tác không thể hoàn tác</small></div><em>›</em></button>
-    </div>
-    <div class="brand-note"><b>Vũ Thu Chi</b><span>Quản lý tài chính · Làm chủ cuộc sống</span></div>
-  </main>
-
-  <nav class="bottom">
-    <button class="nav active" data-page="homePage"><span>⌂</span><small>Tổng quan</small></button>
-    <button class="nav" data-page="transactionsPage"><span>⇆</span><small>Giao dịch</small></button>
-    <button class="addMain" id="mainAdd">+</button>
-    <button class="nav" data-page="reportsPage"><span>▥</span><small>Báo cáo</small></button>
-    <button class="nav" data-page="morePage"><span>•••</span><small>Khác</small></button>
-  </nav>
+<section class="page" id="calendar"><div class="title"><button class="back" data-back="home">‹</button><h1>Chọn ngày</h1></div><div class="card cal"><div class="calnav"><button id="prev">‹</button><b id="calTitle">Tháng 9, 2026</b><button id="next">›</button></div><div class="week"><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span></div><div class="days" id="days"></div></div><div class="datequick"><button>▣ <b>Hôm nay</b><span>15/09/2026</span></button><button>▣ <b>Hôm qua</b><span>14/09/2026</span></button><button>▣ <b>Đầu tháng</b><span>01/09/2026</span></button><button>▣ <b>Cuối tháng</b><span>30/09/2026</span></button></div></section>
+</div>
+<nav class="bottom"><button class="nav active" data-page="home">⌂<small>Tổng quan</small></button><button class="nav" data-page="transactions">⇆<small>Giao dịch</small></button><button class="plus" id="plus">+</button><button class="nav" data-page="reports">▥<small>Báo cáo</small></button><button class="nav" data-page="categories">☷<small>Khác</small></button></nav>
 </div>
 
-<div class="modal hidden" id="modal">
-  <div class="sheet">
-    <div class="sheet-head"><div><small>GIAO DỊCH MỚI</small><h2 id="modalTitle">Thêm khoản chi</h2></div><button id="close">×</button></div>
-    <div class="segmented"><button data-mode="income">Thu</button><button class="active" data-mode="expense">Chi</button><button data-mode="transfer">Chuyển</button></div>
-    <label class="amount-label"><span>Số tiền</span><input id="amount" type="number" inputmode="decimal" placeholder="0"></label>
-    <label>Danh mục<select id="category"></select></label>
-    <label>Ngày giao dịch<button class="date-input" id="dateBtn"><span id="dateText"></span><b>⌄</b></button></label>
-    <label>Ghi chú<input id="note" placeholder="Thêm ghi chú (tuỳ chọn)"></label>
-    <div id="transferFields" class="hidden"><label>Chuyển sang<select id="toBook"><option value="personal">Cá nhân</option><option value="shop">Quán</option><option value="company">Doanh nghiệp</option></select></label></div>
-    <button class="save" id="save">Lưu giao dịch</button>
-  </div>
-</div>
-
-<div class="modal hidden" id="calendarModal">
-  <div class="calendar-sheet"><div class="cal-head"><button id="prevMonth">‹</button><div><small>CHỌN NGÀY</small><h2 id="calTitle"></h2></div><button id="nextMonth">›</button></div><div class="week"><b>T2</b><b>T3</b><b>T4</b><b>T5</b><b>T6</b><b>T7</b><b>CN</b></div><div class="days" id="days"></div><button class="save" id="calDone">Xong</button></div>
-</div>
-
-<script src="app.js"></script>
-</body></html>
+<div class="overlay hidden" id="modal"><div class="sheet"><div class="sheettop"><div><small>THÊM GIAO DỊCH</small><h2 id="formTitle">Thêm khoản thu</h2></div><button id="close">×</button></div><div class="seg"><button data-mode="income">Thu</button><button data-mode="expense">Chi</button><button data-mode="transfer">Chuyển</button></div><div class="amount"><input id="amount" type="number" inputmode="decimal" placeholder="0"> ₫</div><label>Danh mục<select id="cat"></select></label><label>Ngày giao dịch<button class="field" id="datePick"><span id="pickedDate"></span>⌄</button></label><label>Ghi chú<input id="note" placeholder="Nhập ghi chú (tùy chọn)..."></label><div id="toWrap" class="hidden"><label>Chuyển sang<select id="toBook"><option value="personal">Cá nhân</option><option value="shop">Quán</option><option value="company">Doanh nghiệp</option></select></label></div><button id="save" class="save">Lưu giao dịch</button></div></div>
+<script src="app.js"></script></body></html>
